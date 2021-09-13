@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\RegistController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,8 @@ Route::get('/tambah', [DataController::class, 'create']);
 Route::get('/edit', function () {
     return view('edit');
 });
+Route::get('/regist', [RegistController::class, 'index']);
+Route::Post('/regist', [RegistController::class, 'store']);
 
 
 

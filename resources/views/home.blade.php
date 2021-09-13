@@ -34,7 +34,7 @@
             <a class="btn btn-success" href="data/{{ $i->id }}/edit">Edit</a>
             <form action="data/{{ $i->id }}" method="POST" class="d-inline">
                 @method('delete')
-                @csrf
+                @csrf```
                 <button class="btn btn-danger border-0 mb-1" type="submit" onclick="return confirm('Data akan dihapus?')">Delete</button>
             </form>
         </td>
@@ -42,4 +42,4 @@
     @endforeach
 </table>
 
-@endsection
+@endsection`
