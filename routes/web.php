@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\RegistController;
 use Illuminate\Support\Facades\DB;
@@ -16,16 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DataController::class, 'index'])->name('home');
+Route::get('/', [DataController::class, 'index'])->name('home')->middleware('auth');
 Route::resource('data', DataController::class);
-Route::get('/login', function () {
-    return view('login');
-}); 
-Route::get('/tambah', [DataController::class, 'create']);
-Route::get('/edit', function () {
-    return view('edit');
-});
-Route::get('/regist', [RegistController::class, 'index']);
+Route::get('/login', [AuthController::class, 'index'])->middleware('guest')->name('login');
+Route::post('/login', [AuthController::class, 'store']); 
+Route::post('/logout', [AuthController::class, 'logout']); 
+Route::get('/tambah', [DataController::class, 'create'])->middleware('auth');
+// Route::get('/edit', function () {
+//     return view('edit');
+// });
+Route::get('/regist', [RegistController::class, 'index'])->middleware('guest');
 Route::Post('/regist', [RegistController::class, 'store']);
 
 

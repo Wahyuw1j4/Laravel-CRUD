@@ -1,12 +1,15 @@
 @extends('main')
-
-{{-- @dd($data) --}}
-
 @section('main')
 <h2 class="text-center mb-3 mt-3">Tabel Data</h2>
+@auth
+    <h7>Anda login sebagai {{ auth()->user()->username }}</h7>
+@endauth
 <div class="buttonn d-flex justify-content-between">
     <a href="/tambah" class="btn btn-primary">Tambah Data</a>
-    <a href="#" class="btn btn-warning">Logout</a>
+    <form action="/logout" method="POST">
+        @csrf
+        <button class="btn btn-warning">Logout</button>
+    </form>
 </div>
 @if (session()->has('success'))
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -14,6 +17,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 @endif
+
 <table class="table table-striped table-bordered border-secondary">
     <thead class="text-center">
         <th>no</th>
@@ -34,7 +38,7 @@
             <a class="btn btn-success" href="data/{{ $i->id }}/edit">Edit</a>
             <form action="data/{{ $i->id }}" method="POST" class="d-inline">
                 @method('delete')
-                @csrf```
+                @csrf
                 <button class="btn btn-danger border-0 mb-1" type="submit" onclick="return confirm('Data akan dihapus?')">Delete</button>
             </form>
         </td>
